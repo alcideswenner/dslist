@@ -6,6 +6,7 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "tb_game")
 public class Game {
     
     @Id
@@ -20,17 +21,20 @@ public class Game {
     private Integer year;
 
     @Column
+    private Double score;
+
+    @Column
     private String genre;
 
     @Column
     private String imgUrl;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
 
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String longDescription;
 
     @Column
-    private String platform;
+    private String platforms;
 }
