@@ -6,9 +6,10 @@ import lombok.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Table(name = "tb_game")
 public class Game {
-    
+
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
