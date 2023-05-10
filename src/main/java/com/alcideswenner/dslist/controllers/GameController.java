@@ -2,16 +2,12 @@ package com.alcideswenner.dslist.controllers;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.alcideswenner.dslist.GameService;
 import com.alcideswenner.dslist.annotations.LogExecution;
-import com.alcideswenner.dslist.dto.GameDto;
-import lombok.RequiredArgsConstructor;
+import com.alcideswenner.dslist.dto.*;
+import lombok.*;
 
 @RestController
 @RequestMapping(value = "/games")
@@ -22,9 +18,17 @@ public class GameController {
     private final GameService gameService;
 
     @GetMapping
-    public ResponseEntity<List<GameDto>> findAllGames(@RequestParam String teste) {
-        Optional<List<GameDto>> optGames = gameService.findAllGames();
+    public ResponseEntity<List<GameMinDto>> findAllGames() {
+        Optional<List<GameMinDto>> optGames = gameService.findAllGames();
         return optGames
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GameDto> findByIdGame(@NonNull @PathVariable Long id) {
+        Optional<GameDto> optGame = gameService.findByIdGame(id);
+        return optGame
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
