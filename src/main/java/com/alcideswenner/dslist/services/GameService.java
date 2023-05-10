@@ -1,4 +1,4 @@
-package com.alcideswenner.dslist;
+package com.alcideswenner.dslist.services;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,4 +27,11 @@ public class GameService {
                         .map(GameDto::new)
                         .orElseGet(() -> null));
     }
+
+    @Transactional(readOnly = true)
+    public Optional<List<GameMinDto>> findByList(Long idList) {
+        return Optional
+                .ofNullable(this.gameRepository.searchList(idList).stream().map(GameMinDto::new).toList());
+    }
+
 }

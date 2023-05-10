@@ -1,6 +1,7 @@
 package com.alcideswenner.dslist.dto;
 
 import com.alcideswenner.dslist.entities.Game;
+import com.alcideswenner.dslist.projections.GameMinProjection;
 
 public record GameMinDto(
         Long id,
@@ -8,6 +9,7 @@ public record GameMinDto(
         Integer year,
         String imgUrl,
         String shortDescription) {
+
     public GameMinDto(Game game) {
         this(
                 game.getId(),
@@ -15,5 +17,14 @@ public record GameMinDto(
                 game.getYear(),
                 game.getImgUrl(),
                 game.getShortDescription());
+    }
+
+    public GameMinDto(GameMinProjection projection) {
+        this(
+                projection.getId(),
+                projection.getTitle(),
+                projection.getYear(),
+                projection.getImgUrl(),
+                projection.getShortDescription());
     }
 }
